@@ -90,4 +90,3 @@ for f in listdir('.'):
 #EXIF ExifImageWidth
 #EXIF ExifImageLength
 #Image Orientation, value Horizontal (normal)
-
