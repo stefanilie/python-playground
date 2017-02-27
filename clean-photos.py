@@ -4,11 +4,7 @@ from os import listdir
 import argparse
 import sys
 
-parser = argparse.ArgumentParser(description = "This is a cleanup script.")
-parser.add_argument('-v', '--verbose', help = "Verbose mode for this script", required =False)
-args = parser.parse_args()
-
-
+# this is the main fucntion that creates the actual name of the new picture
 def createName(value):
     date = ""
     hour = ""
@@ -22,6 +18,7 @@ def createName(value):
     newName = "WP_"+date+"_"+hour+".jpg"
     return newName
 
+# This simply renames the file.
 def renameFile(fileName, newName):
     os.rename(fileName, newName)
     print fileName+" successfully changed to "+newName+".jpg"
@@ -36,6 +33,7 @@ def checkRes(width, length):
             return True
     return False
 
+# This will move the file to a new folder so that we separate it of the rest.
 def moveFile(fileName):
     try:
         path = "/Users/stefan.ilie/Pictures/Pictures/test/"
@@ -49,10 +47,6 @@ def moveFile(fileName):
 
     print "Successfully moved file %s!", fileName
 
-if args.verbose:
-    print "e verbose"
-print "Current work path for this folder is: " + os.path.dirname(os.path.realpath(__file__))
-
 os.chdir("/Users/stefan.ilie/Pictures/Pictures/test")
 cwd = os.getcwd()
 print "current work directory is: " + cwd
@@ -64,21 +58,18 @@ for f in listdir('.'):
 
     tags = exifread.process_file(pic)
 
-    if str(tags) != "":
-        if 'EXIF DateTimeDigitized' in tags.keys():
-            date = tags["EXIF DateTimeDigitized"]
-            width = tags["EXIF ExifImageWidth"]
-            length = tags["EXIF ExifImageLength"]
-            if checkRes(width, length):
-                print "Res ok"
-                newName = createName(str(date))
-                print newName
+    if set(["EXIF DateTimeDigitized", "EXIF DateTimeDigitized", "EXIF ExifImageWidth", "EXIF ExifImageLength"]).issubset(tags.keys()):
+        date = tags["EXIF DateTimeDigitized"]
+        width = tags["EXIF ExifImageWidth"]
+        length = tags["EXIF ExifImageLength"]
+        if checkRes(width, length):
+            print "Res ok"
+            newName = createName(str(date))
+            print newName
             renameFile(str(f), newName)
             moveFile(newName)
-        else:
-            print "Invalid file"
     else:
-        print "No exifdata"
+        print "Invalid file"
 
 #Daca  checkImageWidth && checkImageLength
     #redenumeste fisier: WP_AAAALLZZ_HH_MM_SS
