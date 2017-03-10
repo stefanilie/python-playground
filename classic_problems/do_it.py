@@ -12,10 +12,11 @@ class SomeClass():
         self.second = ""
 
 def DoIt(obj, string):
-    if string == "first":
-        return obj.first
-    elif string == "second":
-        return obj.second
+    # if string == "first":
+    #     return obj.first
+    # elif string == "second":
+    #     return obj.second
+    return getattr(obj, string)
 
 o = SomeClass()
 o.first= "fizz"
