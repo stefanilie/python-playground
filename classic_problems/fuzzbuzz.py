@@ -23,6 +23,18 @@ def trivialAlgorithm():
         else:
             print i
 
+# This is a more elaborate way of solving this,
+# that, tbh, I got from the internet. But i add it here, because it seems cool.
+def touplesAlgorithm():
+    for i in range(1, 101):
+        t = ((15, "fuzzbuzz"), (3, "fuzz"), (5, "buzz"), (i, i))
+        for (k, v) in t:
+            if i%k == 0:
+                print v
+                break
 
 
+print "Trivial Algorithm"
 trivialAlgorithm();
+print "\n\nTouples Algorithm"
+touplesAlgorithm();
