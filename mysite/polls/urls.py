@@ -3,7 +3,9 @@ from django.conf.urls import url
 # importing the views file
 from . import views
 
-# maping the /index url
+app_name = 'polls'
+
+# maping the urls
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^(?P<question_id>[0-9]+)/$', views.detail, name="detail"),
