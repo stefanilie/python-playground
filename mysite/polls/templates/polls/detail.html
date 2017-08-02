@@ -1,6 +1,16 @@
+{% comment %} Title, rendered based on the question object from the url {% endcomment %}
 <h1>{{ question.question_text }}</h1>
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }}</li>
-{% endfor %}
-</ul>
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p> 
+{% endif %}
+{% comment %} Form that routes to the voting page after voting. {% endcomment %}
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% comment %} Iterating through all the question choices... {% endcomment %}
+    {% for choice in question.choice_set.all %}
+        {% comment %} and making radio buttons for each  {% endcomment %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+        <label for="choice{{ forloop.counter }} ">{{ choice.choice_text }}</label><br/>
+    {% endfor %}
+    <input type="submit" value="Vote"/>
+</form>
