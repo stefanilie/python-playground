@@ -1,0 +1,10 @@
+{% extends 'howmanyleft/layout.html' %} {% block content %}
+
+<h1>Cate mai is?</h1>
+<form class="form-horizontal" method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Log In</button>
+    <!-- <input type="text" placeholder="Search cars by brand/model" id="search-car"> -->
+</form>
+
+{% endblock %}
