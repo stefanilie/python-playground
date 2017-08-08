@@ -14,5 +14,8 @@ from howmanyleft.forms import (
 
 def index(request):
    if request.method == "GET":
-       form = ()
-       return render(request, 'howmanyleft/index.html', {})
+       form = SearchForm()
+       context = {
+           'form': form,
+       }
+       return render(request, 'howmanyleft/index.html', context)
