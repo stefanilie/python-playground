@@ -9,8 +9,16 @@ def detail(request, album_id):
     album=get_object_or_404(Album, pk=album_id)
     return render(request, 'music/detail.html', {'album': album})
 
-def favorite(request, song_id):
-    song = get_object_or_404(Song, pk=song_id)
-    song.is_favourite = True
-    song.save()
-    return render(request, 'music/detail.html', {"album": song.album.id})
+def favorite(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    try:
+        selected_song = album.song_set.get(pk=request.POST['song'])
+        print(selected_song)
+    except (KeyError, Song.DoesNotExist):
+        return render(request, 'music/detail.html', {'album': album, 'error_message': "You did now select valid song"})
+    else:
+        # if it reaches this, everythin worked fine until now
+        selected_song.is_favourite = True
+        selected_song.save()
+        return render(request, 'music/detail.html', {'album': album})
+        
