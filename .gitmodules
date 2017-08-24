@@ -1,0 +1,3 @@
+[submodule "django-music-hub"]
+	path = django-music-hub
+	url = https://github.com/stefanilie/django-music-hub.git
