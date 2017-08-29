@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'howmanyleft.apps.HowmanyleftConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
